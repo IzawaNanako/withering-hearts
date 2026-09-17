@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "withering-hearts",
+	"version": "${version}",
+	"name": "withering-hearts",
+	"description": "placeholder",
+	"authors": [
+		"Wither"
+	],
+	"contact": {
+		"homepage": "https://www.saduwub.com/",
+		"sources": "https://github.com/IzawaNanako/withering-hearts"
+	},
+	"license": "LGPL-3.0-or-later",
+	"icon": "assets/withering-hearts/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.saduwub.withering_hearts.WitheringHearts"
+		],
+		"client": [
+			"com.saduwub.withering_hearts.client.WitheringHeartsClient"
+		],
+		"server": [
+			"com.saduwub.withering_hearts.WitheringHeartsServer"
+		],
+		"fabric-datagen": [
+			"com.saduwub.withering_hearts.client.WitheringHeartsDataGenerator"
+		]
+	},
+	"mixins": [
+		"withering-hearts.mixins.json",
+		{
+			"config": "withering-hearts.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
