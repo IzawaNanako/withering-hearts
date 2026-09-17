@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.saduwub.withering_hearts.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ServerPlayerMixin",
+		"PlayerAdvancementsMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
