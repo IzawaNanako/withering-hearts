@@ -19,7 +19,7 @@ public class ServerPlayerMixin {
         String deathMessage = player.getCombatTracker().getDeathMessage().getString();
 
         if (BridgeWebSocketClient.getInstance() != null) {
-            BridgePayloads.McSystemData data = new BridgePayloads.McSystemData(deathMessage, "death");
+            BridgePayloads.McSystemData data = new BridgePayloads.McSystemData("**" + deathMessage + "**", "death");
             BridgeWebSocketClient.getInstance().sendPayload("system_mc_to_discord", data);
         }
     }

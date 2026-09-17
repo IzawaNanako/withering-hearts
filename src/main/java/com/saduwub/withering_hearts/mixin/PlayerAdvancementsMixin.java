@@ -31,7 +31,7 @@ public abstract class PlayerAdvancementsMixin {
                 String playerName = this.player.getName().getString();
                 String title = displayInfo.title().getString();
                 String description = displayInfo.description().getString();
-                String message = playerName + " has made the advancement [" + title + "] - " + description;
+                String message = "**" + playerName + " has made the advancement [" + title + "]**\n__ - " + description + "__";
 
                 if (BridgeWebSocketClient.getInstance() != null) {
                     BridgePayloads.McSystemData data = new BridgePayloads.McSystemData(message, "advancement");

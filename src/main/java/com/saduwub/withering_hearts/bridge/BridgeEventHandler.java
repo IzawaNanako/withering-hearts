@@ -11,22 +11,22 @@ public class BridgeEventHandler {
     public static void register() {
         ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             currentServer = server;
-            sendSystemMessage("Server started!", "start");
+            sendSystemMessage("**Server started!**", "start");
         });
 
         ServerLifecycleEvents.SERVER_STOPPING.register(_ -> {
-            sendSystemMessage("Server stopped!", "stop");
+            sendSystemMessage("**Server stopped!**", "stop");
             currentServer = null;
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, _, _) -> {
             String name = handler.player.getName().getString();
-            sendSystemMessage(name + " joined the server", "join");
+            sendSystemMessage("**" + name + " joined the server**", "join");
         });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, _) -> {
             String name = handler.player.getName().getString();
-            sendSystemMessage(name + " left the server", "leave");
+            sendSystemMessage("**" + name + " left the server**", "leave");
         });
 
         ServerMessageEvents.CHAT_MESSAGE.register((message, sender, _) -> {
@@ -38,6 +38,19 @@ public class BridgeEventHandler {
 
             if (BridgeWebSocketClient.getInstance() != null) {
                 BridgeWebSocketClient.getInstance().sendPayload("chat_mc_to_discord", chatData);
+            }
+        });
+
+        ServerMessageEvents.GAME_MESSAGE.register((server, message, overlay) -> {
+            if (overlay) {
+                return;
+            }
+
+            String text = message.getString();
+
+            if ((text.startsWith("[Server]") || text.startsWith("* Server ")) && BridgeWebSocketClient.getInstance() != null) {
+                BridgePayloads.McSystemData data = new BridgePayloads.McSystemData(text, "console");
+                BridgeWebSocketClient.getInstance().sendPayload("system_mc_to_discord", data);
             }
         });
     }
